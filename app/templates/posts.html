@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cody's Blog</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/ghostdown.css') }}" media="all" rel="stylesheet">
+  </head>
+
+  <body>
+    <header id="top-header">
+      <nav>
+        <ul>
+          <li><a href="{{ url_for('posts_index') }}">View Content</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="post-wrapper">
+      <div id="post-list">
+      <p>All Posts</p>
+      <button class='custom-button create-button'>
+        <a href="{{ url_for('editor') }}">New Post</a>
+      </button>
+      <hr>
+      {% for post in posts %}
+        <div id="post-{{ post.id }}" class="post-listing">
+          <a href="{{ url_for('posts_index_single', post_id=post.id) }}"><h3>{{ post.title }}</h3></a>
+        </div>
+      {% endfor %}
+      </div>
+      <div id="post-preview">
+        {% if post %}
+          <button class='custom-button'>
+            <a href="{{ url_for('editor_edit_post', post_id=post.id) }}">Edit</a>
+          </button>
+          <div id="post-html">
+          {{ post.html | safe }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    
+
+    <footer>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="{{ url_for('static', filename='js/ghostdown.js') }}"></script>	
+    <script src="{{ url_for('static', filename='js/jquery.ghostdown.js') }}"></script>	
+    <script src="{{ url_for('static', filename='js/custom/editor.js') }}"></script>	
+  </body>
+</html>
